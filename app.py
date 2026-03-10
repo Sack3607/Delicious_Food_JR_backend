@@ -20,7 +20,7 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,       # Solo los dominios listados
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],         # Permite GET, POST, etc.
     allow_headers=["*"]          # Permite cabeceras como Content-Type
 )
@@ -72,7 +72,13 @@ Pregunta:
         )
         respuesta_api.raise_for_status()
         data_api = respuesta_api.json()
-        respuesta_texto = data_api["choices"][0]["message"]["content"]
+
+        print("RESPUESTA GROQ:", data_api)
+
+        try:
+            respuesta_texto = data_api["choices"][0]["message"]["content"]
+        except (KeyError, IndexError):
+            respuesta_texto = "⚠️ No se pudo generar la respuesta."
 
     except requests.exceptions.RequestException as e:
         print("ERROR AL LLAMAR LA API DE GROQ:", e)
@@ -80,7 +86,7 @@ Pregunta:
     except (KeyError, IndexError) as e:
         print("ERROR EN LA RESPUESTA DE LA API:", e)
         raise HTTPException(status_code=500, detail="Respuesta inesperada de la API externa.")
-
+    print(data)
     return {"respuesta": respuesta_texto}
 
 # -------------------------------
