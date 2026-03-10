@@ -14,7 +14,7 @@ app = FastAPI(title="Chatbot API")
 # -------------------------------
 # Reemplaza "https://tu-pagina-web.com" con el dominio de tu web
 origins = [
-    "https://delicious-food-jr.onrender.com/",  # Dominio real de tu web
+    "https://delicious-food-jr.onrender.com",  # Dominio real de tu web
 ]
 
 app.add_middleware(
