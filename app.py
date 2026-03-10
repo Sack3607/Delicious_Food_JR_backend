@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from chatbot import chat  # Aquí pones la función de tu chatbot
-from flask_cors import CORS
+
 
 app = Flask(__name__)
-CORS(app)  # Esto permite que cualquier página pueda hacer requests
+  # Esto permite que cualquier página pueda hacer requests
 
 @app.route("/chat", methods=["POST"])
 def chat():
